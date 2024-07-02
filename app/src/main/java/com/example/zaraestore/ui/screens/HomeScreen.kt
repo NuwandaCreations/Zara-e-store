@@ -1,4 +1,4 @@
-package com.example.zaraestore.screens
+package com.example.zaraestore.ui.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
