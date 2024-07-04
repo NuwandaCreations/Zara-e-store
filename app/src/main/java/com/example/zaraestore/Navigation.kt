@@ -25,11 +25,9 @@ import com.example.zaraestore.ui.screens.DetailScreen
 import com.example.zaraestore.ui.screens.HomeScreen
 import com.example.zaraestore.ui.screens.ReferenceSearchScreen
 import com.example.zaraestore.ui.screens.ScannerSearchScreen
-import com.example.zaraestore.ui.screens.SearchScreen
 
 sealed class Screen(val route: String, val icon: ImageVector) {
     data object HomeScreen : Screen("home", Icons.Outlined.Home)
-    data object SearchScreen : Screen("search", Icons.Outlined.Search)
     data object ScannerSearchScreen : Screen("scanner", Icons.Outlined.Search)
     data object ReferenceSearchScreen : Screen("reference", Icons.Outlined.Search)
     data object DetailsScreen : Screen("detail", Icons.Outlined.Search)
@@ -40,7 +38,7 @@ fun Navigation() {
     val navController = rememberNavController()
     val items = listOf(
         Screen.HomeScreen,
-        Screen.SearchScreen
+        Screen.ReferenceSearchScreen
     )
     Scaffold(
         bottomBar = {
@@ -74,7 +72,6 @@ fun Navigation() {
             Modifier.padding(innerPadding)
         ) {
             composable(Screen.HomeScreen.route) { HomeScreen() }
-            composable(Screen.SearchScreen.route) { SearchScreen(navController) }
             composable(Screen.ReferenceSearchScreen.route) { ReferenceSearchScreen(navController) }
             composable(Screen.ScannerSearchScreen.route) { ScannerSearchScreen(navController) }
             composable(Screen.DetailsScreen.route) { DetailScreen(navController, clothe) }
