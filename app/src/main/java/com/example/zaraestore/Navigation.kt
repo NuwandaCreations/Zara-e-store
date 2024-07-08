@@ -21,8 +21,11 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.zaraestore.model.Wear.Companion.clothe
+import com.example.zaraestore.ui.screens.DataScreen
 import com.example.zaraestore.ui.screens.DetailScreen
 import com.example.zaraestore.ui.screens.HomeScreen
+import com.example.zaraestore.ui.screens.NotificationScreen
+import com.example.zaraestore.ui.screens.OrderScreen
 import com.example.zaraestore.ui.screens.ReferenceSearchScreen
 import com.example.zaraestore.ui.screens.ScannerSearchScreen
 
@@ -31,6 +34,9 @@ sealed class Screen(val route: String, val icon: ImageVector) {
     data object ScannerSearchScreen : Screen("scanner", Icons.Outlined.Search)
     data object ReferenceSearchScreen : Screen("reference", Icons.Outlined.Search)
     data object DetailsScreen : Screen("detail", Icons.Outlined.Search)
+    data object OrderScreen : Screen("order", Icons.Outlined.Search)
+    data object DataScreen : Screen("data", Icons.Outlined.Search)
+    data object NotificationScreen : Screen("notification", Icons.Outlined.Search)
 }
 
 @Composable
@@ -75,6 +81,9 @@ fun Navigation() {
             composable(Screen.ReferenceSearchScreen.route) { ReferenceSearchScreen(navController) }
             composable(Screen.ScannerSearchScreen.route) { ScannerSearchScreen(navController) }
             composable(Screen.DetailsScreen.route) { DetailScreen(navController, clothe) }
+            composable(Screen.OrderScreen.route) { OrderScreen(navController) }
+            composable(Screen.DataScreen.route) { DataScreen(navController) }
+            composable(Screen.NotificationScreen.route) { NotificationScreen(navController) }
         }
     }
 }

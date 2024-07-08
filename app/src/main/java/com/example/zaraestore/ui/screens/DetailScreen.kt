@@ -1,5 +1,6 @@
 package com.example.zaraestore.ui.screens
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -31,8 +32,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.zaraestore.Screen
+import com.example.zaraestore.ZaraEstoreApp.Companion.appContext
 import com.example.zaraestore.model.Clothes
+import com.example.zaraestore.model.Wear
+import com.example.zaraestore.model.Wear.Companion.boxers
 import com.example.zaraestore.model.Wear.Companion.chaleco
+import com.example.zaraestore.model.Wear.Companion.notification
 import com.example.zaraestore.model.Wear.Companion.sandalias
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -48,7 +53,8 @@ fun DetailScreen(navController: NavController, wear: Clothes) {
         0 -> wear.image2
         else -> wear.image1
     }
-    var valueInput by rememberSaveable { mutableStateOf("") }
+    var valueInput by rememberSaveable { mutableStateOf("+34 ") }
+    var valueEmailInput by rememberSaveable { mutableStateOf("") }
 
     Row(Modifier.fillMaxSize(), verticalAlignment = Alignment.CenterVertically) {
         Image(
@@ -236,7 +242,7 @@ fun DetailScreen(navController: NavController, wear: Clothes) {
                             .padding(start = 50.dp, end = 50.dp, bottom = 15.dp),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Text(text = "ARTÍCULO EN TIENDA")
+                        Text(text = "ARTÍCULO EN EL ALMACÉN")
                         Spacer(modifier = Modifier.size(20.dp))
                         Text(text = "La talla seleccionada se encuentra en el almacén")
                         Spacer(modifier = Modifier.size(20.dp))
@@ -261,104 +267,67 @@ fun DetailScreen(navController: NavController, wear: Clothes) {
                     }
                 }
 
+                if (wear == Wear.shorts) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(start = 50.dp, end = 50.dp, bottom = 15.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(text = "OHHH... ¡LO SIENTO!")
+                        Spacer(modifier = Modifier.size(20.dp))
+                        Text(text = "Este producto se encuentra agotado. Introduce tu e-mail para que te lo notifiquemos cuando vuelva a estar disponible")
+                        Spacer(modifier = Modifier.size(20.dp))
+                        OutlinedTextField(
+                            value = valueEmailInput,
+                            onValueChange = {
+                                valueEmailInput = it
+                            })
+                        Spacer(modifier = Modifier.size(20.dp))
+                        Box(modifier = Modifier
+                            .border(width = 1.dp, color = Color.Black)
+                            .padding(7.dp)
+                            .clickable {
+                                navController.navigate(Screen.HomeScreen.route)
+                                Toast.makeText(appContext, "Te avisaremos cuando tengamos el artículo", Toast.LENGTH_SHORT).show()
+                            }) {
+                            Text(text = "Notifícame cuando esté")
+                        }
+                        Spacer(modifier = Modifier.size(20.dp))
+                    }
+                }
 
-//                Column(
-//                    modifier = Modifier
-//                        .fillMaxWidth()
-//                        .padding(start = 50.dp, end = 50.dp, bottom = 15.dp),
-//                    horizontalAlignment = Alignment.CenterHorizontally
-//                ) {
-//                    Text(text = "VER DISPONIBILIDAD EN TIENDA PASEO DEL BORNE")
-//                    Spacer(modifier = Modifier.size(20.dp))
-//                    Text(text = "Selecciona una o más tallas para comprobar su disponibilidad en tiendas")
-//                    Spacer(modifier = Modifier.size(20.dp))
-//                    Text(text = "¿Qué talla buscas?")
-//                    Spacer(modifier = Modifier.size(20.dp))
-//                    Row(
-//                        modifier = Modifier.fillMaxWidth(),
-//                        horizontalArrangement = Arrangement.Center
-//                    ) {
-//                        Spacer(modifier = Modifier.size(25.dp))
-//                        Box(
-//                            modifier = Modifier
-//                                .border(width = 1.dp, color = colorSize[0])
-//                                .size(100.dp, 30.dp)
-//                                .clickable {
-//                                    colorSize[0] = Color.Black
-//                                }, contentAlignment = Alignment.Center
-//                        ) {
-//                            Text(text = "XS", color = colorSize[0])
-//                        }
-//                        Spacer(modifier = Modifier.size(20.dp))
-//                        Box(
-//                            modifier = Modifier
-//                                .border(width = 1.dp, color = colorSize[1])
-//                                .size(100.dp, 30.dp)
-//                                .clickable {
-//                                    colorSize[1] = Color.Black
-//                                }, contentAlignment = Alignment.Center
-//                        ) {
-//                            Text(text = "S", color = colorSize[1])
-//                        }
-//                        Spacer(modifier = Modifier.size(20.dp))
-//                        Box(
-//                            modifier = Modifier
-//                                .border(width = 1.dp, color = colorSize[2])
-//                                .size(100.dp, 30.dp)
-//                                .clickable {
-//                                    colorSize[2] = Color.Black
-//                                }, contentAlignment = Alignment.Center
-//                        ) {
-//                            Text(text = "M", color = colorSize[2])
-//                        }
-//                        Spacer(modifier = Modifier.size(20.dp))
-//                        Box(
-//                            modifier = Modifier
-//                                .border(width = 1.dp, color = colorSize[3])
-//                                .size(100.dp, 30.dp)
-//                                .clickable {
-//                                    colorSize[3] = Color.Black
-//                                }, contentAlignment = Alignment.Center
-//                        ) {
-//                            Text(text = "L", color = colorSize[3])
-//                        }
-//                        Spacer(modifier = Modifier.size(20.dp))
-//                        Box(
-//                            modifier = Modifier
-//                                .border(width = 1.dp, color = colorSize[4])
-//                                .size(100.dp, 30.dp)
-//                                .clickable {
-//                                    colorSize[4] = Color.Black
-//                                }, contentAlignment = Alignment.Center
-//                        ) {
-//                            Text(text = "XL", color = colorSize[4])
-//                        }
-//                        Spacer(modifier = Modifier.size(20.dp))
-//                        Box(
-//                            modifier = Modifier
-//                                .border(width = 1.dp, color = colorSize[5])
-//                                .size(100.dp, 30.dp)
-//                                .clickable {
-//                                    colorSize[5] = Color.Black
-//                                }, contentAlignment = Alignment.Center
-//                        ) {
-//                            Text(text = "XXL", color = colorSize[5])
-//                        }
-//                        Spacer(modifier = Modifier.size(75.dp))
-//                    }
-//                    Box(
-//                        modifier = Modifier
-//                            .border(width = 1.dp, color = Color.Black)
-//                            .fillMaxWidth()
-//                            .padding(vertical = 20.dp, horizontal = 100.dp)
-//                            .clickable {
-//
-//                            },
-//                        contentAlignment = Alignment.Center
-//                    ) {
-//                        Text(text = "VER DISPONIBILIDAD")
-//                    }
-//                }
+                if (wear == boxers) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(start = 50.dp, end = 50.dp, bottom = 15.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(text = "EL ARTÍCULO NO SE ENCUENTRA EN LA TIENDA")
+                        Spacer(modifier = Modifier.size(20.dp))
+                        Text(text = "Actualmente está agotado. Pero lo tenemos disponible para realizar el pedido online.")
+                        Spacer(modifier = Modifier.size(20.dp))
+                        Row {
+                            Box(modifier = Modifier
+                                .border(width = 1.dp, color = Color.Black)
+                                .padding(7.dp)
+                                .clickable {
+                                    navController.navigate(Screen.OrderScreen.route)
+                                }) {
+                                Text(text = "Hacer pedido")
+                            }
+                            Spacer(modifier = Modifier.size(20.dp))
+                            Box(modifier = Modifier
+                                .border(width = 1.dp, color = Color.Black)
+                                .padding(7.dp)
+                                .clickable { navController.navigate(Screen.HomeScreen.route) }) {
+                                Text(text = "Cancelar")
+                            }
+                        }
+
+                    }
+                }
             }
         }
         if (bottomSheetState == 2) {
@@ -385,7 +354,10 @@ fun DetailScreen(navController: NavController, wear: Clothes) {
                     Box(modifier = Modifier
                         .border(width = 1.dp, color = Color.Black)
                         .padding(7.dp)
-                        .clickable { navController.navigate(Screen.HomeScreen.route) }) {
+                        .clickable {
+                            notification = "Solicitud realizada, nos pondremos en contacto cuando localicemos la prenda."
+                            navController.navigate(Screen.NotificationScreen.route)
+                        }) {
                         Text(text = "Enviar petición")
                     }
                 }

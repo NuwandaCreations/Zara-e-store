@@ -69,6 +69,8 @@ class Wear() {
         )
 
         lateinit var clothe: Clothes
+        var loc = "tienda"
+        var notification = "Nos pondremos en contacto"
         //STOCK EN LA TIENDA, EN EL ALMACEN, SOLO ONLINE, NINGUN STOCK
     }
 }
